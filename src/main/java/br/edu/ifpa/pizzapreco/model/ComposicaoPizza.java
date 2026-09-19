@@ -3,6 +3,7 @@ package br.edu.ifpa.pizzapreco.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(
@@ -74,5 +75,17 @@ public class ComposicaoPizza {
 
     public void alterarQuantidade(BigDecimal quantidade) {
         this.quantidade = quantidade;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ComposicaoPizza that = (ComposicaoPizza) o;
+        return Objects.equals(idComposicao, that.idComposicao);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(idComposicao);
     }
 }

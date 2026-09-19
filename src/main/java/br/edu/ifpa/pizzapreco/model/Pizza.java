@@ -5,9 +5,18 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Table(name = "pizza")
+@Table(
+        name = "pizza",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_pizza_nome_tamanho",
+                        columnNames = {"nome", "tamanho"}
+                )
+        }
+)
 public class Pizza {
 
     @Id
@@ -16,6 +25,9 @@ public class Pizza {
 
     @Column(nullable = false, length = 100)
     private String nome;
+
+    @Column(nullable = false, length = 30)
+    private String tamanho;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal precoVenda;
@@ -30,8 +42,9 @@ public class Pizza {
     public Pizza() {
     }
 
-    public Pizza(String nome, BigDecimal precoVenda) {
+    public Pizza(String nome, String tamanho, BigDecimal precoVenda) {
         this.nome = nome;
+        this.tamanho = tamanho;
         this.precoVenda = precoVenda;
     }
 
@@ -49,6 +62,14 @@ public class Pizza {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(String tamanho) {
+        this.tamanho = tamanho;
     }
 
     public BigDecimal getPrecoVenda() {
@@ -83,5 +104,17 @@ public class Pizza {
         }
 
         composicao.setPizza(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Pizza pizza = (Pizza) o;
+        return Objects.equals(idPizza, pizza.idPizza);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(idPizza);
     }
 }

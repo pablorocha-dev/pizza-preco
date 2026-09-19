@@ -3,6 +3,7 @@ package br.edu.ifpa.pizzapreco.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "insumo")
@@ -60,5 +61,17 @@ public class Insumo {
 
     public void setPrecoUnitario(BigDecimal precoUnitario) {
         this.precoUnitario = precoUnitario;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Insumo insumo = (Insumo) o;
+        return Objects.equals(idInsumo, insumo.idInsumo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(idInsumo);
     }
 }
