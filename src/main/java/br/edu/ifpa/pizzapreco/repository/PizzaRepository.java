@@ -7,4 +7,10 @@ public interface PizzaRepository extends JpaRepository<Pizza, Long> {
 
     boolean existsByNomeAndTamanho(String nome, String tamanho);
 
+    boolean existsByNomeAndTamanhoAndIdPizzaNot(
+            String nome,
+            String tamanho,
+            Long idPizza
+    );
+
 }
