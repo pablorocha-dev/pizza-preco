@@ -29,7 +29,7 @@ public class Pizza {
     @Column(nullable = false, length = 30)
     private String tamanho;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(precision = 10, scale = 2)
     private BigDecimal precoVenda;
 
     @OneToMany(
